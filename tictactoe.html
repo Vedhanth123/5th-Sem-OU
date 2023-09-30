@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #e0f2f1; /* Set the background color to a very light blue */
+            color: #333;
+        }
+
+        h1 {
+            color: #fff; /* White text for better visibility */
+        }
+        
+        #tic-tac-toe-board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-gap: 5px;
+            margin: 20px auto;
+            width: 300px;
+        }
+
+        /* Default cell style (circle) */
+        .cell {
+            width: 100px;
+            height: 100px;
+            font-size: 24px;
+            text-align: center;
+            vertical-align: middle;
+            border: 1px solid rgba(255, 255, 255, 0.5); /* White border for visibility */
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+            border-radius: 50%; /* Make cells circular */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+            color: #fff; /* White text for better visibility */
+        }
+
+        .cell:hover {
+            background-color: rgba(0, 0, 0, 0.7); /* Slightly darker background on hover */
+        }
+
+        .cell.x {
+            background-color: #ff5733; /* X player color */
+        }
+
+        .cell.o {
+            background-color: yellow; /* O player color */
+        }
+
+        /* Prime number cells (hexagon) */
+        .cell.prime {
+            clip-path: polygon(50% 0%, 86% 25%, 86% 75%, 50% 100%, 14% 75%, 14% 25%);
+        }
+
+        /* Even number cells (star) */
+        .cell.even {
+            clip-path: polygon(50% 0%, 61.8% 38.2%, 100% 50%, 61.8% 61.8%, 50% 100%, 38.2% 61.8%, 0% 50%, 38.2% 38.2%);
+        }
+
+        /* Odd number cells (triangle) */
+        .cell.odd {
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        }
+
+        #status {
+            font-size: 18px;
+            color: #fff; /* White text for better visibility */
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tic-Tac-Toe</h1>
+    <div id="tic-tac-toe-board">
+        <div class="cell prime" onclick="makeMove(0)"></div>
+        <div class="cell even" onclick="makeMove(1)"></div>
+        <div class="cell odd" onclick="makeMove(2)"></div>
+        <div class="cell prime" onclick="makeMove(3)"></div>
+        <div class="cell even" onclick="makeMove(4)"></div>
+        <div class="cell odd" onclick="makeMove(5)"></div>
+        <div class="cell prime" onclick="makeMove(6)"></div>
+        <div class="cell even" onclick="makeMove(7)"></div>
+        <div class="cell odd" onclick="makeMove(8)"></div>
+    </div>
+    <p id="status"></p>
+
+    <script>
+        let currentPlayer = 'X';
+        const cells = document.querySelectorAll('.cell');
+        const status = document.getElementById('status');
+
+        function makeMove(index) {
+            if (cells[index].textContent === '' && !isGameOver()) {
+                cells[index].textContent = currentPlayer;
+                cells[index].classList.add(currentPlayer.toLowerCase()); // Add class for color
+                currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+
+                if (isGameOver()) {
+                    status.textContent = 'Game over! ' + (currentPlayer === 'X' ? 'O' : 'X') + ' wins!';
+                } else if (isBoardFull()) {
+                    status.textContent = "It's a tie!";
+                }
+            }
+        }
+
+        function isBoardFull() {
+            return [...cells].every(cell => cell.textContent !== '');
+        }
+
+        function isGameOver() {
+            const winningCombos = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8],
+                [0, 3, 6], [1, 4, 7], [2, 5, 8],
+                [0, 4, 8], [2, 4, 6]
+            ];
+
+            for (const combo of winningCombos) {
+                const [a, b, c] = combo;
+                if (cells[a].textContent && cells[a].textContent === cells[b].textContent && cells[a].textContent === cells[c].textContent) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+    </script>
+</body>
+</html>

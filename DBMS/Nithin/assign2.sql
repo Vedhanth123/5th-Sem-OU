@@ -7,8 +7,6 @@
 
 @emp.sql;
 
-
-
 set wrap off;
 set lines 50;
 set linesize 150;
@@ -181,15 +179,16 @@ select * from emp where HIREDATE<'1-JAN-1985' and sal>3000;
 
 ---52nd question
 create table emp_grade as select * from emp e join salgrade s on sal between s.losal and s.hisal;
-
+select sal, losal,hisal, grade from emp_grade;
 alter table emp add (grade int);
+
 update emp set emp.grade = (select emp_grade.grade from emp_grade where emp.empno=emp_grade.empno) ;
 
 drop table emp_grade;
 desc emp;
 select * from emp;
 
-select * from emp where grade=3;
+--select * from emp where grade=3;
 
 
 -----------------------------------------------UPDATE COMMAND------------------------------
@@ -572,3 +571,10 @@ select * from emp;
 delete from emp where grade=1 and job != 'CLERK';
 
 select * from emp;
+
+
+DROP TABLE EMP;
+DROP TABLE DEPT;
+DROP TABLE BONUS;
+DROP TABLE SALGRADE;
+DROP TABLE DUMMY;
