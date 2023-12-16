@@ -98,7 +98,7 @@ SELECT replace(9999.00-1,'8',88) FROM dual;
 -- replaces 8 with 88
 
 PROMPT --28 question
-SELECT round(148.50) FROM dual;
+SELECT round(148.90) FROM dual;
 
 PROMPT --29 question
 SELECT trunc (sysdate,'mon') FROM dual;

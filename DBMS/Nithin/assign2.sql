@@ -385,7 +385,7 @@ delete from emp where deptno=30 and HIREDATE = (select MAX(HIREDATE) from emp wh
 
 select * from emp;
 rollback;
-
+ 
 --- 6th question
 select * from emp;
 
